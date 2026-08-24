@@ -5,9 +5,15 @@ use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Features;
 
 test('login screen can be rendered', function () {
+    User::factory()->create();
+
     $response = $this->get(route('login'));
 
     $response->assertOk();
+});
+
+test('guests are redirected from login to register during first-time setup', function () {
+    $this->get(route('login'))->assertRedirect(route('register'));
 });
 
 test('users can authenticate using the login screen', function () {

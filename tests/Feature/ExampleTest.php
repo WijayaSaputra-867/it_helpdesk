@@ -1,7 +1,13 @@
 <?php
 
-it('returns a successful response', function () {
-    $response = $this->get('/');
+use App\Models\User;
 
-    $response->assertStatus(200);
+it('redirects to the register page during first-time setup', function () {
+    $this->get('/')->assertRedirect(route('register'));
+});
+
+it('returns a successful response when the app is set up', function () {
+    User::factory()->create();
+
+    $this->get('/')->assertOk();
 });

@@ -3,7 +3,6 @@ import { PropsWithChildren } from 'react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import AppearanceToggleDropdown from '@/components/appearance-dropdown';
 import { create, track } from '@/routes/tickets';
-import { login } from '@/routes';
 import { toUrl } from '@/lib/utils';
 
 export default function PublicLayout({ children }: PropsWithChildren) {
@@ -24,9 +23,6 @@ export default function PublicLayout({ children }: PropsWithChildren) {
                             </Link>
                             <Link href={toUrl(track())} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                                 Track Ticket
-                            </Link>
-                            <Link href={toUrl(login())} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                                Admin Login
                             </Link>
                         </div>
                         <AppearanceToggleDropdown />

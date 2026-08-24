@@ -1,13 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Laravel\Fortify\Features;
+use App\Http\Controllers\Admin\AdminTicketController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketReplyController;
-use App\Http\Controllers\Admin\AdminTicketController;
+use App\Models\User;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
+    if (! User::exists()) {
+        return redirect()->route('register');
+    }
+
     return Inertia::render('welcome');
 })->name('home');
 
@@ -20,9 +25,7 @@ Route::prefix('tickets')->name('tickets.')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return redirect()->route('admin.tickets.index');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         Route::get('/tickets', [AdminTicketController::class, 'index'])->name('tickets.index');

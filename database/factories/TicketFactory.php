@@ -29,4 +29,54 @@ class TicketFactory extends Factory
             'priority' => 'medium',
         ];
     }
+
+    /**
+     * Indicate that the ticket is still open.
+     */
+    public function open(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'open',
+        ]);
+    }
+
+    /**
+     * Indicate that the ticket is being worked on.
+     */
+    public function inProgress(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'in_progress',
+        ]);
+    }
+
+    /**
+     * Indicate that the ticket has been resolved.
+     */
+    public function closed(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'closed',
+        ]);
+    }
+
+    /**
+     * Indicate that the ticket has a high priority.
+     */
+    public function highPriority(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'priority' => 'high',
+        ]);
+    }
+
+    /**
+     * Indicate that the ticket has a low priority.
+     */
+    public function lowPriority(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'priority' => 'low',
+        ]);
+    }
 }
